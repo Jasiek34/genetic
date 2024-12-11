@@ -19,8 +19,8 @@ namespace WinFormsApp1
         public float selectionPressure;
        
 
-        public List<bool[]> population;
-        SortedDictionary<int, bool[]> popScores;
+        //public List<bool[]> population;
+        //SortedDictionary<int, bool[]> popScores;
         List<Individual> populationWithScores;
         Dictionary<int, bool[]> bestPopScores; //nieposortowane żeby zobaczyć jak się zmieniało fitness w pokoleniach
         List<bool[]> bestIndividuals;
@@ -37,6 +37,7 @@ namespace WinFormsApp1
             bestPopScores = new Dictionary<int, bool[]>();
             bestFitness = new List<int>();
             bestIndividuals=new List<bool[]>();
+            populationWithScores = new List<Individual>();
 
             initPop();
         }
@@ -69,35 +70,35 @@ namespace WinFormsApp1
             }
             return value;
         }
+        private void MutatePop()
+        {
+            foreach(Individual ind in populationWithScores)
+            {
+                int r = new Random().Next(0, 10);
+                if (r < 2)
+                {
+                    ind.Mutate(2);//mutacja dwoch losowych bitow
+                }
+            }
+        }
+        
         private void CalcPopFitness()
         {
-            int[] fitnessScores = new int[population.Count];
-            List<bool[]> selected = new List<bool[]>();
-            SortedDictionary<int, bool[]> sortedPop = new SortedDictionary<int, bool[]>();
-            for (int i = 0;i<population.Count;i++)
+            for (int i = 0;i< populationWithScores.Count;i++)
             {
-                int val = Fitness(population[i]);
-                fitnessScores[i] = val;
-                try
-                {
-                    sortedPop.Add(val, population[i]); //na razie pomijam osobniki z tym samym fitness
-                }
-                catch(Exception e)
-                {
-
-                }
+                int val = Fitness(populationWithScores[i].representation);
+                populationWithScores[i].fitness = val;
                 
             }
-
-            popScores = sortedPop; //potencjalny memory leak bez uwolnienia sortedPop?
-          
+            populationWithScores.Sort();
+            
         }
         private List<bool[]> SelectParentsSimple()// wybiera najlepsza polowe
         {
             List<bool[]> s = new List<bool[]>();
-            for (int i = 0; i<popScores.Count; i++)
+            for (int i = 0; i< populationWithScores.Count; i++)
             {
-                s.Add( popScores.ElementAt(i).Value);
+                s.Add(populationWithScores[i].representation);
             }
             return s;
         }
@@ -106,38 +107,41 @@ namespace WinFormsApp1
         {
             CalcPopFitness();
             //bestPopScores.Add(popScores.First().Key, popScores.First().Value);//najlepszy fitness z pokolenia zostaje zapisany
-            bestIndividuals.Add(popScores.First().Value);
-            bestFitness.Add(popScores.First().Key);
+            bestIndividuals.Add(populationWithScores[0].representation);
+            bestFitness.Add(populationWithScores[0].fitness);
             List<bool[]> selected = SelectParentsSimple();
             Random random = new Random();
             //metoda rangowa
             selectionPressure = 1.2f;//usunac ustawianie na stale
-            float[] probabilityScores = new float[selected.Count];
+            
             float scoresSum = 0;
             for (int i =0; i < selected.Count; i++)// (selected.Count/2) polowa wybranych bierze udzial w losowaniu (mozna zmienic)
             {
                 //szansa na rozmnazanie
-                probabilityScores[i] = (float)(1f / populationSize) * (selectionPressure - (2 * selectionPressure - 2) * (float)(i - 1) / (float)(populationSize - 1));
-                scoresSum += probabilityScores[i];
+                float f = (float)(1f / populationSize) * (selectionPressure - (2 * selectionPressure - 2) * (float)(i - 1) / (float)(populationSize - 1));
+                populationWithScores[i].probabScore = f;
+                scoresSum += f;
             }
-            float maxScore = probabilityScores[0];
+            float maxScore = populationWithScores[0].probabScore;
             
             
-            List<bool[]> newPop = new List<bool[]>(); //to co zwrocimy na koniec jako nowa generacja
+            List<Individual> newPop = new List<Individual>(); //to co zwrocimy na koniec jako nowa generacja
             bool[] parent1 = new bool[itemsNo];
             bool[] parent2 = new bool[itemsNo];
-            
+
             //for (int j  = 0; j < populationSize; j++)
+            int jj = 0;
             while (newPop.Count < populationSize)
             {
-                double rnd = random.NextDouble();//wylosowana wartosc dla prawdopodobienstwa rozmnazania osobnika
+                
+                double rnd = random.NextDouble()/2;//wylosowana wartosc dla prawdopodobienstwa rozmnazania osobnika
                 int rndIndividual; 
                 bool p1 = false;
                 bool p2 = false;
-                for (int i = 0; i < 10; i++) 
+                for (int i = 0; i < 5; i++) 
                 {
                     rndIndividual = random.Next(0, populationSize-1);
-                    if (rnd - probabilityScores[rndIndividual] <= 0) //czy bierze udzial w rozmnazaniu
+                    if (rnd - populationWithScores[rndIndividual].probabScore <= 0) //czy bierze udzial w rozmnazaniu
                     {
                         parent1 = selected[rndIndividual];
                         p1 = true;
@@ -145,23 +149,31 @@ namespace WinFormsApp1
                     }
                 }
 
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < 5; i++)
                 {
                     rndIndividual = random.Next(0, populationSize-1);
-                    if (rnd - probabilityScores[rndIndividual] <= 0) //czy bierze udzial w rozmnazaniu
+                    if (rnd - populationWithScores[rndIndividual].probabScore <= 0) //czy bierze udzial w rozmnazaniu
                     {
                         parent2 = selected[rndIndividual];
                         p2=true;
                         break;
                     }
                 }
-                if (!p1 || !p2 || Enumerable.SequenceEqual(parent1, parent2)) { continue; }
+                if (!p1 || !p2 || Enumerable.SequenceEqual(parent1, parent2)) 
+                {
+                    jj++;
+                    if (jj < 5)
+                    {
+                        continue;
+                    }
+                }
                 bool[] child = CrossoverSimple(parent1, parent2);
-                newPop.Add(child);
+                newPop.Add(new Individual { representation=child});
             }
             //population = new List<bool[]>(newPop);//sprawdzic czy to jest deep copy w c# 
-            population.Clear();
-            population = newPop;
+            populationWithScores.Clear();
+            populationWithScores = newPop;
+            MutatePop();
             currentGen++;
         }
         
@@ -186,24 +198,24 @@ namespace WinFormsApp1
         }
         private void initPop()
         {
-            population = new List<bool[]>();
+            populationWithScores = new List<Individual>();
             Random random = new Random();
             for (int i = 0; i<populationSize ; i++)
             {
-                bool[] individual = new bool[itemsNo];
+                bool[] representation = new bool[itemsNo];
                 for (int j = 0; j < itemsNo ; j++)
                 {
                     int l = random.Next(0, 2);
                     if( l == 0)
                     {
-                        individual[j] = false;
+                        representation[j] = false;
                     }
                     else
                     {
-                        individual[j] = true;
+                        representation[j] = true;
                     }
                 }
-                population.Add(individual);
+                populationWithScores.Add(new Individual {representation=representation });
             }
             
         }
