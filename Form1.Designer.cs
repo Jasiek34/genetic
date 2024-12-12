@@ -53,6 +53,12 @@
             crossoverRateLabel = new Label();
             crossoverRateTxtBox = new TextBox();
             plotView1 = new OxyPlot.WindowsForms.PlotView();
+            mutationRateTxtBox = new TextBox();
+            label6 = new Label();
+            elitCB = new CheckBox();
+            elitismTxtBox = new TextBox();
+            label7 = new Label();
+            weightLabel = new Label();
             SuspendLayout();
             // 
             // additemBtn
@@ -157,7 +163,7 @@
             // 
             // populationTxtBox
             // 
-            populationTxtBox.Location = new Point(128, 257);
+            populationTxtBox.Location = new Point(128, 272);
             populationTxtBox.Name = "populationTxtBox";
             populationTxtBox.Size = new Size(100, 23);
             populationTxtBox.TabIndex = 12;
@@ -166,7 +172,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(128, 239);
+            label3.Location = new Point(129, 254);
             label3.Name = "label3";
             label3.Size = new Size(59, 15);
             label3.TabIndex = 13;
@@ -174,7 +180,7 @@
             // 
             // capacityTxtBox
             // 
-            capacityTxtBox.Location = new Point(128, 204);
+            capacityTxtBox.Location = new Point(128, 213);
             capacityTxtBox.Name = "capacityTxtBox";
             capacityTxtBox.Size = new Size(100, 23);
             capacityTxtBox.TabIndex = 14;
@@ -183,7 +189,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(129, 186);
+            label4.Location = new Point(129, 189);
             label4.Name = "label4";
             label4.Size = new Size(66, 15);
             label4.TabIndex = 15;
@@ -207,11 +213,12 @@
             itemsNoLabel.Name = "itemsNoLabel";
             itemsNoLabel.Size = new Size(80, 15);
             itemsNoLabel.TabIndex = 18;
-            itemsNoLabel.Text = "przedmiorów:";
+            itemsNoLabel.Text = "przedmiotów:";
+            itemsNoLabel.Visible = false;
             // 
             // generationsNoTxtBox
             // 
-            generationsNoTxtBox.Location = new Point(129, 316);
+            generationsNoTxtBox.Location = new Point(129, 325);
             generationsNoTxtBox.Name = "generationsNoTxtBox";
             generationsNoTxtBox.Size = new Size(100, 23);
             generationsNoTxtBox.TabIndex = 19;
@@ -220,7 +227,7 @@
             // generacje
             // 
             generacje.AutoSize = true;
-            generacje.Location = new Point(128, 298);
+            generacje.Location = new Point(128, 307);
             generacje.Name = "generacje";
             generacje.Size = new Size(58, 15);
             generacje.TabIndex = 20;
@@ -246,7 +253,7 @@
             // noGenLabel
             // 
             noGenLabel.AutoSize = true;
-            noGenLabel.Location = new Point(387, 527);
+            noGenLabel.Location = new Point(384, 558);
             noGenLabel.Name = "noGenLabel";
             noGenLabel.Size = new Size(94, 15);
             noGenLabel.TabIndex = 23;
@@ -271,7 +278,7 @@
             // 
             // plotView1
             // 
-            plotView1.Location = new Point(431, 16);
+            plotView1.Location = new Point(441, 16);
             plotView1.Name = "plotView1";
             plotView1.PanCursor = Cursors.Hand;
             plotView1.Size = new Size(597, 386);
@@ -281,11 +288,70 @@
             plotView1.ZoomRectangleCursor = Cursors.SizeNWSE;
             plotView1.ZoomVerticalCursor = Cursors.SizeNS;
             // 
+            // mutationRateTxtBox
+            // 
+            mutationRateTxtBox.Location = new Point(128, 495);
+            mutationRateTxtBox.Name = "mutationRateTxtBox";
+            mutationRateTxtBox.Size = new Size(100, 23);
+            mutationRateTxtBox.TabIndex = 28;
+            mutationRateTxtBox.Text = "30";
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(128, 477);
+            label6.Name = "label6";
+            label6.Size = new Size(90, 15);
+            label6.TabIndex = 29;
+            label6.Text = "mutacja (0-100)";
+            // 
+            // elitCB
+            // 
+            elitCB.AutoSize = true;
+            elitCB.Location = new Point(254, 188);
+            elitCB.Name = "elitCB";
+            elitCB.Size = new Size(104, 19);
+            elitCB.TabIndex = 30;
+            elitCB.Text = "Elityzm (0-100)";
+            elitCB.UseVisualStyleBackColor = true;
+            // 
+            // elitismTxtBox
+            // 
+            elitismTxtBox.Location = new Point(254, 213);
+            elitismTxtBox.Name = "elitismTxtBox";
+            elitismTxtBox.Size = new Size(100, 23);
+            elitismTxtBox.TabIndex = 31;
+            elitismTxtBox.Text = "10";
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(27, 172);
+            label7.Name = "label7";
+            label7.Size = new Size(85, 15);
+            label7.TabIndex = 32;
+            label7.Text = "waga   wartość";
+            // 
+            // weightLabel
+            // 
+            weightLabel.AutoSize = true;
+            weightLabel.Location = new Point(384, 532);
+            weightLabel.Name = "weightLabel";
+            weightLabel.Size = new Size(40, 15);
+            weightLabel.TabIndex = 33;
+            weightLabel.Text = "Waga:";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1200, 673);
+            Controls.Add(weightLabel);
+            Controls.Add(label7);
+            Controls.Add(elitismTxtBox);
+            Controls.Add(elitCB);
+            Controls.Add(label6);
+            Controls.Add(mutationRateTxtBox);
             Controls.Add(plotView1);
             Controls.Add(crossoverRateTxtBox);
             Controls.Add(crossoverRateLabel);
@@ -312,7 +378,7 @@
             Controls.Add(weightTxtBox);
             Controls.Add(additemBtn);
             Name = "Form1";
-            Text = "Form1";
+            Text = "Knapsack Problem (GA)";
             ResumeLayout(false);
             PerformLayout();
         }
@@ -344,5 +410,11 @@
         private Label crossoverRateLabel;
         private TextBox crossoverRateTxtBox;
         private OxyPlot.WindowsForms.PlotView plotView1;
+        private TextBox mutationRateTxtBox;
+        private Label label6;
+        private CheckBox elitCB;
+        private TextBox elitismTxtBox;
+        private Label label7;
+        private Label weightLabel;
     }
 }

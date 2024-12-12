@@ -24,7 +24,7 @@ namespace WinFormsApp1
             {
                 if (representation[i])
                 {
-                    weight++;
+                    weight += weights[i];
                 }
             }
             return weight;

@@ -1,6 +1,7 @@
 using OxyPlot.Series;
 using OxyPlot;
 using OxyPlot.Axes;
+using OxyPlot.Legends;
 
 namespace WinFormsApp1
 {
@@ -15,14 +16,16 @@ namespace WinFormsApp1
             values = new List<int>() { 5,4,7,2,8,4,9 };*/
             /*weights = new List<int>() { 1, 2, 3, 4, 5, 6, 7 };
             values = new List<int>() { 2, 4, 4, 5, 7, 9, 9 };*/
-
+            itemsListView.MouseHover += showItemsNo;
+            itemsListView.MouseLeave += hideItemsNo;
+            //itemsListView.
             weights = new List<int>();
             values = new List<int>();
-            for (int i = 0; i < 10; i++)
+            /*for (int i = 0; i < 20; i++)
             {
                 addRndItems();
 
-            }
+            }*/
         }
         public List<int> weights;
         public List<int> values;
@@ -82,17 +85,30 @@ namespace WinFormsApp1
             resultLabel.Text = "Znalezione rozwi¹zanie:";
             itemsListView.Items.Clear();
         }
+        private void showItemsNo(object sender, EventArgs e)
+        {
+            itemsNoLabel.Visible = true;
+            itemsNoLabel.Text = "przedmiotów: " + weights.Count;
+        }
+        private void hideItemsNo(object sender, EventArgs e)
+        {
+            itemsNoLabel.Visible = false;
+        }
 
         private void geneticBtn_Click(object sender, EventArgs e)
         {
-            GeneticAlg alg = new GeneticAlg(weights, values, Convert.ToInt32(capacityTxtBox.Text), Convert.ToInt32(populationTxtBox.Text), Convert.ToInt32(generationsNoTxtBox.Text), (float)Convert.ToDouble(selectionPressureTxtBox.Text), Convert.ToInt32(crossoverRateTxtBox.Text));
+            LowLightItems();
+            GeneticAlg alg = new GeneticAlg(weights, values, Convert.ToInt32(capacityTxtBox.Text), Convert.ToInt32(populationTxtBox.Text), Convert.ToInt32(generationsNoTxtBox.Text), (float)Convert.ToDouble(selectionPressureTxtBox.Text), Convert.ToInt32(crossoverRateTxtBox.Text), Convert.ToInt32(mutationRateTxtBox.Text), elitCB.Enabled, Convert.ToInt32(elitismTxtBox.Text));
             int res = alg.main();
             resultLabel.Text = "Znalezione rozwi¹zanie: " + res;
             noGenLabel.Text = "Liczba generacji: " + alg.currentGen;
+            Individual bestInd = alg.populationWithScores[0];
+            HighlightItems(bestInd);
+
 
             var myModel = new PlotModel { Title = "Fitness function" };
             myModel.PlotType = PlotType.Cartesian;
-            
+
             LineSeries ls = new LineSeries() { };
 
             for (int i = 0; i < Convert.ToInt32(generationsNoTxtBox.Text); i++)
@@ -100,21 +116,48 @@ namespace WinFormsApp1
                 ls.Points.Add(new DataPoint(i, alg.bestFitness[i]));
             }
 
+            LineSeries lsAverage = new LineSeries() { };
+            for (int i = 0; i < Convert.ToInt32(generationsNoTxtBox.Text); i++)
+            {
+                lsAverage.Points.Add(new DataPoint(i, alg.averageFitness[i]));
+            }
+            weightLabel.Text = "Waga: " + bestInd.GetWeight(weights);
+            myModel.Legends.Add(new Legend() { LegendTitle = "Best", LegendTitleColor = OxyColors.Green, });
+            myModel.Legends.Add(new Legend() { LegendTitle = "Average", LegendPosition = LegendPosition.BottomRight, LegendTitleColor = OxyColors.Orange });
             myModel.Axes.Add(new LinearAxis
             {
                 Position = AxisPosition.Left,
-                //AbsoluteMaximum = 200,
                 Minimum = 0,
+                Title = "Value"
             });
             myModel.Axes.Add(new LinearAxis
             {
                 Position = AxisPosition.Bottom,
-                //AbsoluteMaximum = 200,
                 AbsoluteMinimum = 0,
+                Title = "Generations"
+
             });
             myModel.Series.Add(ls);
+            myModel.Series.Add(lsAverage);
             plotView1.Model = myModel;
 
+        }
+        private void HighlightItems(Individual ind)
+        {
+            for (int i = 0; i < itemsListView.Items.Count; i++)
+            {
+                if (ind.representation[i])
+                {
+                    itemsListView.Items[i].ForeColor = Color.IndianRed;
+                }
+            }
+        }
+        private void LowLightItems()
+        {
+            for (int i = 0; i < itemsListView.Items.Count; i++)
+            {
+                itemsListView.Items[i].ForeColor = Color.Black;
+            }
         }
 
         private void addRndItemsBtn_Click(object sender, EventArgs e)
