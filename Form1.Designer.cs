@@ -49,6 +49,10 @@
             generacje = new Label();
             label5 = new Label();
             selectionPressureTxtBox = new TextBox();
+            noGenLabel = new Label();
+            crossoverRateLabel = new Label();
+            crossoverRateTxtBox = new TextBox();
+            plotView1 = new OxyPlot.WindowsForms.PlotView();
             SuspendLayout();
             // 
             // additemBtn
@@ -106,7 +110,7 @@
             // resultLabel
             // 
             resultLabel.AutoSize = true;
-            resultLabel.Location = new Point(379, 371);
+            resultLabel.Location = new Point(384, 503);
             resultLabel.Name = "resultLabel";
             resultLabel.Size = new Size(131, 15);
             resultLabel.TabIndex = 7;
@@ -114,7 +118,7 @@
             // 
             // showOptResBtn
             // 
-            showOptResBtn.Location = new Point(659, 336);
+            showOptResBtn.Location = new Point(664, 468);
             showOptResBtn.Name = "showOptResBtn";
             showOptResBtn.Size = new Size(110, 23);
             showOptResBtn.TabIndex = 8;
@@ -125,7 +129,7 @@
             // optReslabel
             // 
             optReslabel.AutoSize = true;
-            optReslabel.Location = new Point(809, 339);
+            optReslabel.Location = new Point(814, 471);
             optReslabel.Name = "optReslabel";
             optReslabel.Size = new Size(0, 15);
             optReslabel.TabIndex = 9;
@@ -143,7 +147,7 @@
             // geneticBtn
             // 
             geneticBtn.DialogResult = DialogResult.No;
-            geneticBtn.Location = new Point(379, 336);
+            geneticBtn.Location = new Point(384, 468);
             geneticBtn.Name = "geneticBtn";
             geneticBtn.Size = new Size(119, 23);
             geneticBtn.TabIndex = 11;
@@ -239,11 +243,53 @@
             selectionPressureTxtBox.TabIndex = 22;
             selectionPressureTxtBox.Text = "1,2";
             // 
+            // noGenLabel
+            // 
+            noGenLabel.AutoSize = true;
+            noGenLabel.Location = new Point(387, 527);
+            noGenLabel.Name = "noGenLabel";
+            noGenLabel.Size = new Size(94, 15);
+            noGenLabel.TabIndex = 23;
+            noGenLabel.Text = "Liczba generacji:";
+            // 
+            // crossoverRateLabel
+            // 
+            crossoverRateLabel.AutoSize = true;
+            crossoverRateLabel.Location = new Point(129, 425);
+            crossoverRateLabel.Name = "crossoverRateLabel";
+            crossoverRateLabel.Size = new Size(105, 15);
+            crossoverRateLabel.TabIndex = 25;
+            crossoverRateLabel.Text = "krzyżowanie (0-10)";
+            // 
+            // crossoverRateTxtBox
+            // 
+            crossoverRateTxtBox.Location = new Point(129, 443);
+            crossoverRateTxtBox.Name = "crossoverRateTxtBox";
+            crossoverRateTxtBox.Size = new Size(100, 23);
+            crossoverRateTxtBox.TabIndex = 26;
+            crossoverRateTxtBox.Text = "8";
+            // 
+            // plotView1
+            // 
+            plotView1.Location = new Point(431, 16);
+            plotView1.Name = "plotView1";
+            plotView1.PanCursor = Cursors.Hand;
+            plotView1.Size = new Size(597, 386);
+            plotView1.TabIndex = 27;
+            plotView1.Text = "plotView1";
+            plotView1.ZoomHorizontalCursor = Cursors.SizeWE;
+            plotView1.ZoomRectangleCursor = Cursors.SizeNWSE;
+            plotView1.ZoomVerticalCursor = Cursors.SizeNS;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1200, 673);
+            Controls.Add(plotView1);
+            Controls.Add(crossoverRateTxtBox);
+            Controls.Add(crossoverRateLabel);
+            Controls.Add(noGenLabel);
             Controls.Add(selectionPressureTxtBox);
             Controls.Add(label5);
             Controls.Add(generacje);
@@ -294,5 +340,9 @@
         private Label generacje;
         private Label label5;
         private TextBox selectionPressureTxtBox;
+        private Label noGenLabel;
+        private Label crossoverRateLabel;
+        private TextBox crossoverRateTxtBox;
+        private OxyPlot.WindowsForms.PlotView plotView1;
     }
 }

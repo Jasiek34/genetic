@@ -11,10 +11,28 @@ namespace WinFormsApp1
         public bool[] representation;
         public float probabScore;
         public int fitness;
+         
+
+        public int itemsNo { get 
+            {
+                return representation.Where(c=>c).Count();
+            } }
+        public int GetWeight(List<int> weights)
+        {
+            int weight = 0;
+            for (int i = 0; i < weights.Count; i++)
+            {
+                if (representation[i])
+                {
+                    weight++;
+                }
+            }
+            return weight;
+        }
         public int CompareTo(Individual other)
         {
-            if(this.fitness < other.fitness) return -1;
-            if (this.fitness == other.fitness) return 0; return 1;
+            if(this.fitness < other.fitness) return 1;
+            if (this.fitness == other.fitness) return 0; return -1;
         }
         public void Mutate( int bytesNo)
         {
