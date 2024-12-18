@@ -97,8 +97,11 @@ namespace WinFormsApp1
 
         private void geneticBtn_Click(object sender, EventArgs e)
         {
-            LowLightItems();
-            GeneticAlg alg = new GeneticAlg(weights, values, Convert.ToInt32(capacityTxtBox.Text), Convert.ToInt32(populationTxtBox.Text), Convert.ToInt32(generationsNoTxtBox.Text), (float)Convert.ToDouble(selectionPressureTxtBox.Text), Convert.ToInt32(crossoverRateTxtBox.Text), Convert.ToInt32(mutationRateTxtBox.Text), elitCB.Enabled, Convert.ToInt32(elitismTxtBox.Text));
+            StopHighlightItems();
+            GeneticAlg alg = new GeneticAlg(weights, values, Convert.ToInt32(capacityTxtBox.Text), Convert.ToInt32(populationTxtBox.Text), Convert.ToInt32(generationsNoTxtBox.Text), (float)Convert.ToDouble(selectionPressureTxtBox.Text), Convert.ToInt32(crossoverRateTxtBox.Text), Convert.ToInt32(mutationRateTxtBox.Text), elitCB.Enabled, Convert.ToInt32(elitismTxtBox.Text), fitPenaltyRadio0.Checked);
+            alg.mutatedGenesNo = Convert.ToInt32(noMutatedGenesTxtBox.Text);
+            alg.initPopOneNo = Convert.ToInt32(initPopOnesTxtBox.Text);
+            alg.initPopZeroNo = Convert.ToInt32(initPopZerosTxtBox.Text);
             int res = alg.main();
             resultLabel.Text = "Znalezione rozwi¹zanie: " + res;
             noGenLabel.Text = "Liczba generacji: " + alg.currentGen;
@@ -152,7 +155,7 @@ namespace WinFormsApp1
                 }
             }
         }
-        private void LowLightItems()
+        private void StopHighlightItems()
         {
             for (int i = 0; i < itemsListView.Items.Count; i++)
             {
@@ -166,8 +169,8 @@ namespace WinFormsApp1
         }
         private void addRndItems()
         {
-            int rndWeight = new Random().Next(2, 20);
-            int rndVal = new Random().Next(0, 30);
+            int rndWeight = new Random().Next(Convert.ToInt32(minWghtTxtBox.Text), Convert.ToInt32(maxWghtTxtBox.Text));
+            int rndVal = new Random().Next(Convert.ToInt32(minValTxtBox.Text), Convert.ToInt32(maxValTxtBox.Text));
             weights.Add(rndWeight);
             values.Add(Convert.ToInt32(rndVal));
             itemsListView.Items.Add(rndWeight + "   " + rndVal);
@@ -177,5 +180,7 @@ namespace WinFormsApp1
 
 
         }
+
+
     }
 }

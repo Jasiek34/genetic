@@ -22,13 +22,17 @@ namespace WinFormsApp1
         public int mutationRate;
         public bool useElitism;
         public int elitismPercent;
+        public bool fitnessPenalty0;
+        public int mutatedGenesNo;
+        public int initPopZeroNo;
+        public int initPopOneNo; // initPopOneNo/initPopZeroNo to stosunek jedynek do zer w początkowej populacji
 
         public List<Individual> populationWithScores;
         List<bool[]> bestIndividuals;
         public List<int> bestFitness;
         public List<int> averageFitness;
-        
-        public GeneticAlg(List<int> weights, List<int> values, int capacity, int populationSize, int generationsNo, float selectionPressure, int crossoverRate, int mutationRate, bool useElitism, int elitismPercent=0)
+
+        public GeneticAlg(List<int> weights, List<int> values, int capacity, int populationSize, int generationsNo, float selectionPressure, int crossoverRate, int mutationRate, bool useElitism, int elitismPercent = 0, bool fitnessPenalty0 = true)
         {
             this.weights = weights;
             this.values = values;
@@ -37,6 +41,7 @@ namespace WinFormsApp1
             this.generationsNo = generationsNo;
             this.selectionPressure = selectionPressure;
             this.crossoverRate = crossoverRate;
+
             itemsNo = weights.Count;
             //bestPopScores = new Dictionary<int, bool[]>();
             bestFitness = new List<int>();
@@ -48,6 +53,10 @@ namespace WinFormsApp1
             this.mutationRate = mutationRate;
             this.useElitism = useElitism;
             this.elitismPercent = elitismPercent;
+            this.fitnessPenalty0 = fitnessPenalty0;
+            mutatedGenesNo = 1;
+            initPopZeroNo = 1;
+            initPopOneNo = 1;
         }
         public int main()
         {
@@ -59,7 +68,7 @@ namespace WinFormsApp1
         }
 
         
-        private int Fitness(bool[] individual)
+        private int FitnessPenaltyZero(bool[] individual)
         {
             int currentWeight = 0;
             int value = 0;
@@ -78,6 +87,27 @@ namespace WinFormsApp1
             }
             return value;
         }
+        private int FitnessPenaltyPercent(bool[] individual)
+        {
+            int currentWeight = 0;
+            int value = 0;
+            for (int i = 0; i < individual.Length; i++)
+            {
+                if (individual[i])
+                {
+                    currentWeight += weights[i];
+                    value += values[i];
+                }
+
+            }
+            if (currentWeight > capacity)
+            {
+                double penalty = (double)capacity / (double)currentWeight;
+
+                value = (int)(penalty*value);
+            }
+            return value;
+        }
         private void MutatePop()
         {
             foreach(Individual ind in populationWithScores)
@@ -86,19 +116,32 @@ namespace WinFormsApp1
                 if (r < mutationRate)
                 {
                     
-                    ind.Mutate(1);//mutacja dwoch losowych bitow
+                    ind.Mutate(mutatedGenesNo);//mutacja losowego bitu
                 }
             }
         }
         
         private void CalcPopFitness()
         {
-            for (int i = 0;i< populationWithScores.Count;i++)
+            if (fitnessPenalty0)
             {
-                int val = Fitness(populationWithScores[i].representation);
-                populationWithScores[i].fitness = val;
-                
+                for (int i = 0; i < populationWithScores.Count; i++)
+                {
+                    int val = FitnessPenaltyZero(populationWithScores[i].representation);
+                    populationWithScores[i].fitness = val;
+
+                }
             }
+            else
+            {
+                for (int i = 0; i < populationWithScores.Count; i++)
+                {
+                    int val = FitnessPenaltyPercent(populationWithScores[i].representation);
+                    populationWithScores[i].fitness = val;
+
+                }
+            }
+            
             populationWithScores.Sort();
             
         }
@@ -203,7 +246,6 @@ namespace WinFormsApp1
                 
                 
             }
-            //population = new List<bool[]>(newPop);//sprawdzic czy to jest deep copy w c# 
             currentGen++;
             if (currentGen >= generationsNo)
             {
@@ -263,13 +305,17 @@ namespace WinFormsApp1
         {
             populationWithScores = new List<Individual>();
             Random random = new Random();
-            for (int i = 0; i<populationSize ; i++)
+            //initPopZeroNo initPopOneNo;
+            int sum = initPopZeroNo + initPopOneNo;
+            
+           
+            for (int i = 0; i < populationSize; i++)
             {
                 bool[] representation = new bool[itemsNo];
-                for (int j = 0; j < itemsNo ; j++)
+                for (int j = 0; j < itemsNo; j++)
                 {
-                    int l = random.Next(0, 2);
-                    if( l == 0)
+                    int l = random.Next(0, sum);
+                    if (l < initPopZeroNo)
                     {
                         representation[j] = false;
                     }
@@ -279,15 +325,15 @@ namespace WinFormsApp1
                     }
                 }
                 populationWithScores.Add(new Individual { representation = representation, fitness = 0, probabScore = 0 });
-               
 
             }
+
+            
+            
+
+            
             
         }
     }
-    public class Item
-    {
-        public int weight;
-        public int value;
-    }
+    
 }

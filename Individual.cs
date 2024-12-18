@@ -36,6 +36,10 @@ namespace WinFormsApp1
         }
         public void Mutate( int bytesNo)
         {
+            if(bytesNo>itemsNo)
+            {
+                bytesNo = itemsNo;
+            }
             int r = new Random().Next(0, representation.Length);
             for (int i = 0; i < bytesNo; i++)
             {

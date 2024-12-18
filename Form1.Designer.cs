@@ -59,11 +59,37 @@
             elitismTxtBox = new TextBox();
             label7 = new Label();
             weightLabel = new Label();
+            fitPenaltyRadio0 = new RadioButton();
+            fitPenaltyRadioPercent = new RadioButton();
+            label8 = new Label();
+            label9 = new Label();
+            radioButton1 = new RadioButton();
+            radioButton2 = new RadioButton();
+            radioButton3 = new RadioButton();
+            label10 = new Label();
+            radioButton4 = new RadioButton();
+            radioButton5 = new RadioButton();
+            minWghtTxtBox = new TextBox();
+            minValTxtBox = new TextBox();
+            maxWghtTxtBox = new TextBox();
+            maxValTxtBox = new TextBox();
+            label11 = new Label();
+            label12 = new Label();
+            wghtIntervalLabel1 = new Label();
+            label14 = new Label();
+            label13 = new Label();
+            initPopZerosTxtBox = new TextBox();
+            initPopOnesTxtBox = new TextBox();
+            label15 = new Label();
+            label16 = new Label();
+            label17 = new Label();
+            label18 = new Label();
+            noMutatedGenesTxtBox = new TextBox();
             SuspendLayout();
             // 
             // additemBtn
             // 
-            additemBtn.Location = new Point(244, 40);
+            additemBtn.Location = new Point(129, 38);
             additemBtn.Name = "additemBtn";
             additemBtn.Size = new Size(110, 23);
             additemBtn.TabIndex = 0;
@@ -73,16 +99,16 @@
             // 
             // weightTxtBox
             // 
-            weightTxtBox.Location = new Point(12, 39);
+            weightTxtBox.Location = new Point(13, 39);
             weightTxtBox.Name = "weightTxtBox";
-            weightTxtBox.Size = new Size(100, 23);
+            weightTxtBox.Size = new Size(48, 23);
             weightTxtBox.TabIndex = 1;
             // 
             // valueTxtBox
             // 
-            valueTxtBox.Location = new Point(128, 39);
+            valueTxtBox.Location = new Point(67, 39);
             valueTxtBox.Name = "valueTxtBox";
-            valueTxtBox.Size = new Size(100, 23);
+            valueTxtBox.Size = new Size(48, 23);
             valueTxtBox.TabIndex = 2;
             // 
             // label1
@@ -98,7 +124,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(128, 16);
+            label2.Location = new Point(67, 16);
             label2.Name = "label2";
             label2.Size = new Size(48, 15);
             label2.TabIndex = 4;
@@ -198,9 +224,9 @@
             // addRndItemsBtn
             // 
             addRndItemsBtn.DialogResult = DialogResult.OK;
-            addRndItemsBtn.Location = new Point(13, 84);
+            addRndItemsBtn.Location = new Point(15, 79);
             addRndItemsBtn.Name = "addRndItemsBtn";
-            addRndItemsBtn.Size = new Size(100, 23);
+            addRndItemsBtn.Size = new Size(110, 23);
             addRndItemsBtn.TabIndex = 17;
             addRndItemsBtn.Text = "Dodaj losowe";
             addRndItemsBtn.UseVisualStyleBackColor = true;
@@ -341,11 +367,283 @@
             weightLabel.TabIndex = 33;
             weightLabel.Text = "Waga:";
             // 
+            // fitPenaltyRadio0
+            // 
+            fitPenaltyRadio0.AutoSize = true;
+            fitPenaltyRadio0.Checked = true;
+            fitPenaltyRadio0.Location = new Point(260, 273);
+            fitPenaltyRadio0.Name = "fitPenaltyRadio0";
+            fitPenaltyRadio0.Size = new Size(79, 19);
+            fitPenaltyRadio0.TabIndex = 34;
+            fitPenaltyRadio0.TabStop = true;
+            fitPenaltyRadio0.Text = "fitness = 0";
+            fitPenaltyRadio0.UseVisualStyleBackColor = true;
+            // 
+            // fitPenaltyRadioPercent
+            // 
+            fitPenaltyRadioPercent.AutoSize = true;
+            fitPenaltyRadioPercent.Location = new Point(260, 289);
+            fitPenaltyRadioPercent.Name = "fitPenaltyRadioPercent";
+            fitPenaltyRadioPercent.Size = new Size(177, 19);
+            fitPenaltyRadioPercent.TabIndex = 35;
+            fitPenaltyRadioPercent.Text = "fitness *= (capacity / weight)";
+            fitPenaltyRadioPercent.UseVisualStyleBackColor = true;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Location = new Point(254, 255);
+            label8.Name = "label8";
+            label8.Size = new Size(160, 15);
+            label8.TabIndex = 36;
+            label8.Text = "Kara za przepełnienie plecaka";
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(260, 343);
+            label9.Name = "label9";
+            label9.Size = new Size(89, 15);
+            label9.TabIndex = 37;
+            label9.Text = "Metoda selekcji";
+            // 
+            // radioButton1
+            // 
+            radioButton1.AutoCheck = false;
+            radioButton1.AutoSize = true;
+            radioButton1.Location = new Point(264, 361);
+            radioButton1.Name = "radioButton1";
+            radioButton1.Size = new Size(71, 19);
+            radioButton1.TabIndex = 38;
+            radioButton1.TabStop = true;
+            radioButton1.Text = "rangowa";
+            radioButton1.UseVisualStyleBackColor = true;
+            // 
+            // radioButton2
+            // 
+            radioButton2.AutoCheck = false;
+            radioButton2.AutoSize = true;
+            radioButton2.Location = new Point(264, 383);
+            radioButton2.Name = "radioButton2";
+            radioButton2.Size = new Size(81, 19);
+            radioButton2.TabIndex = 39;
+            radioButton2.TabStop = true;
+            radioButton2.Text = "turniejowa";
+            radioButton2.UseVisualStyleBackColor = true;
+            // 
+            // radioButton3
+            // 
+            radioButton3.AutoCheck = false;
+            radioButton3.AutoSize = true;
+            radioButton3.Location = new Point(264, 404);
+            radioButton3.Name = "radioButton3";
+            radioButton3.Size = new Size(77, 19);
+            radioButton3.TabIndex = 40;
+            radioButton3.TabStop = true;
+            radioButton3.Text = "ruletkowa";
+            radioButton3.UseVisualStyleBackColor = true;
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Location = new Point(264, 446);
+            label10.Name = "label10";
+            label10.Size = new Size(72, 15);
+            label10.TabIndex = 41;
+            label10.Text = "Krzyżowanie";
+            // 
+            // radioButton4
+            // 
+            radioButton4.AutoCheck = false;
+            radioButton4.AutoSize = true;
+            radioButton4.Location = new Point(264, 486);
+            radioButton4.Name = "radioButton4";
+            radioButton4.Size = new Size(78, 19);
+            radioButton4.TabIndex = 42;
+            radioButton4.TabStop = true;
+            radioButton4.Text = "punktowe";
+            radioButton4.UseVisualStyleBackColor = true;
+            // 
+            // radioButton5
+            // 
+            radioButton5.AutoCheck = false;
+            radioButton5.AutoSize = true;
+            radioButton5.Location = new Point(264, 464);
+            radioButton5.Name = "radioButton5";
+            radioButton5.Size = new Size(86, 19);
+            radioButton5.TabIndex = 43;
+            radioButton5.TabStop = true;
+            radioButton5.Text = "jednorodne";
+            radioButton5.UseVisualStyleBackColor = true;
+            // 
+            // minWghtTxtBox
+            // 
+            minWghtTxtBox.Location = new Point(64, 108);
+            minWghtTxtBox.Name = "minWghtTxtBox";
+            minWghtTxtBox.Size = new Size(48, 23);
+            minWghtTxtBox.TabIndex = 44;
+            minWghtTxtBox.Text = "1";
+            // 
+            // minValTxtBox
+            // 
+            minValTxtBox.Location = new Point(64, 146);
+            minValTxtBox.Name = "minValTxtBox";
+            minValTxtBox.Size = new Size(48, 23);
+            minValTxtBox.TabIndex = 45;
+            minValTxtBox.Text = "0";
+            // 
+            // maxWghtTxtBox
+            // 
+            maxWghtTxtBox.Location = new Point(141, 108);
+            maxWghtTxtBox.Name = "maxWghtTxtBox";
+            maxWghtTxtBox.Size = new Size(48, 23);
+            maxWghtTxtBox.TabIndex = 46;
+            maxWghtTxtBox.Text = "100";
+            // 
+            // maxValTxtBox
+            // 
+            maxValTxtBox.Location = new Point(141, 146);
+            maxValTxtBox.Name = "maxValTxtBox";
+            maxValTxtBox.Size = new Size(48, 23);
+            maxValTxtBox.TabIndex = 47;
+            maxValTxtBox.Text = "20";
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Location = new Point(123, 108);
+            label11.Name = "label11";
+            label11.Size = new Size(12, 15);
+            label11.TabIndex = 48;
+            label11.Text = "-";
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.Location = new Point(123, 146);
+            label12.Name = "label12";
+            label12.Size = new Size(12, 15);
+            label12.TabIndex = 49;
+            label12.Text = "-";
+            // 
+            // wghtIntervalLabel1
+            // 
+            wghtIntervalLabel1.AutoSize = true;
+            wghtIntervalLabel1.Location = new Point(12, 110);
+            wghtIntervalLabel1.Name = "wghtIntervalLabel1";
+            wghtIntervalLabel1.Size = new Size(35, 15);
+            wghtIntervalLabel1.TabIndex = 50;
+            wghtIntervalLabel1.Text = "waga";
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Location = new Point(14, 146);
+            label14.Name = "label14";
+            label14.Size = new Size(48, 15);
+            label14.TabIndex = 51;
+            label14.Text = "wartość";
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.Location = new Point(198, 600);
+            label13.Name = "label13";
+            label13.Size = new Size(125, 15);
+            label13.TabIndex = 52;
+            label13.Text = "początkowa populacja";
+            // 
+            // initPopZerosTxtBox
+            // 
+            initPopZerosTxtBox.Location = new Point(208, 618);
+            initPopZerosTxtBox.Name = "initPopZerosTxtBox";
+            initPopZerosTxtBox.Size = new Size(28, 23);
+            initPopZerosTxtBox.TabIndex = 53;
+            initPopZerosTxtBox.Text = "1";
+            // 
+            // initPopOnesTxtBox
+            // 
+            initPopOnesTxtBox.Location = new Point(260, 618);
+            initPopOnesTxtBox.Name = "initPopOnesTxtBox";
+            initPopOnesTxtBox.Size = new Size(29, 23);
+            initPopOnesTxtBox.TabIndex = 54;
+            initPopOnesTxtBox.Text = "1";
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.Location = new Point(207, 643);
+            label15.Name = "label15";
+            label15.Size = new Size(22, 15);
+            label15.TabIndex = 55;
+            label15.Text = "zer";
+            // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.Location = new Point(260, 644);
+            label16.Name = "label16";
+            label16.Size = new Size(48, 15);
+            label16.TabIndex = 56;
+            label16.Text = "jedynek";
+            // 
+            // label17
+            // 
+            label17.AutoSize = true;
+            label17.Location = new Point(242, 621);
+            label17.Name = "label17";
+            label17.Size = new Size(12, 15);
+            label17.TabIndex = 57;
+            label17.Text = "/";
+            // 
+            // label18
+            // 
+            label18.AutoSize = true;
+            label18.Location = new Point(129, 532);
+            label18.Name = "label18";
+            label18.Size = new Size(116, 15);
+            label18.TabIndex = 58;
+            label18.Text = "mutowanych genów";
+            // 
+            // noMutatedGenesTxtBox
+            // 
+            noMutatedGenesTxtBox.Location = new Point(128, 550);
+            noMutatedGenesTxtBox.Name = "noMutatedGenesTxtBox";
+            noMutatedGenesTxtBox.Size = new Size(100, 23);
+            noMutatedGenesTxtBox.TabIndex = 59;
+            noMutatedGenesTxtBox.Text = "1";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1200, 673);
+            Controls.Add(noMutatedGenesTxtBox);
+            Controls.Add(label18);
+            Controls.Add(label17);
+            Controls.Add(label16);
+            Controls.Add(label15);
+            Controls.Add(initPopOnesTxtBox);
+            Controls.Add(initPopZerosTxtBox);
+            Controls.Add(label13);
+            Controls.Add(label14);
+            Controls.Add(wghtIntervalLabel1);
+            Controls.Add(label12);
+            Controls.Add(label11);
+            Controls.Add(maxValTxtBox);
+            Controls.Add(maxWghtTxtBox);
+            Controls.Add(minValTxtBox);
+            Controls.Add(minWghtTxtBox);
+            Controls.Add(radioButton5);
+            Controls.Add(radioButton4);
+            Controls.Add(label10);
+            Controls.Add(radioButton3);
+            Controls.Add(radioButton2);
+            Controls.Add(radioButton1);
+            Controls.Add(label9);
+            Controls.Add(label8);
+            Controls.Add(fitPenaltyRadioPercent);
+            Controls.Add(fitPenaltyRadio0);
             Controls.Add(weightLabel);
             Controls.Add(label7);
             Controls.Add(elitismTxtBox);
@@ -416,5 +714,31 @@
         private TextBox elitismTxtBox;
         private Label label7;
         private Label weightLabel;
+        private RadioButton fitPenaltyRadio0;
+        private RadioButton fitPenaltyRadioPercent;
+        private Label label8;
+        private Label label9;
+        private RadioButton radioButton1;
+        private RadioButton radioButton2;
+        private RadioButton radioButton3;
+        private Label label10;
+        private RadioButton radioButton4;
+        private RadioButton radioButton5;
+        private TextBox minWghtTxtBox;
+        private TextBox minValTxtBox;
+        private TextBox maxWghtTxtBox;
+        private TextBox maxValTxtBox;
+        private Label label11;
+        private Label label12;
+        private Label wghtIntervalLabel1;
+        private Label label14;
+        private Label label13;
+        private TextBox initPopZerosTxtBox;
+        private TextBox initPopOnesTxtBox;
+        private Label label15;
+        private Label label16;
+        private Label label17;
+        private Label label18;
+        private TextBox noMutatedGenesTxtBox;
     }
 }
