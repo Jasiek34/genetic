@@ -176,7 +176,7 @@ namespace WinFormsApp1
             
             //usuwam polowe najgorszych osobnikow
 
-            populationWithScores.RemoveRange(populationWithScores.Count/2, populationWithScores.Count / 2);
+            //populationWithScores.RemoveRange(populationWithScores.Count/2, populationWithScores.Count / 2);
             int currentPopSize = populationWithScores.Count;
 
 
@@ -201,7 +201,7 @@ namespace WinFormsApp1
             while (newPop.Count < populationSize)
             {
                 
-                double rnd = random.NextDouble();//wylosowana wartosc dla prawdopodobienstwa rozmnazania osobnika
+                double rnd = random.NextDouble() / populationSize;//wylosowana wartosc dla prawdopodobienstwa rozmnazania osobnika
                 int rndIndividual; 
                 bool p1 = false;
                 bool p2 = false;
