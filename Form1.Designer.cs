@@ -62,10 +62,6 @@
             fitPenaltyRadio0 = new RadioButton();
             fitPenaltyRadioPercent = new RadioButton();
             label8 = new Label();
-            label9 = new Label();
-            radioButton1 = new RadioButton();
-            radioButton2 = new RadioButton();
-            radioButton3 = new RadioButton();
             minWghtTxtBox = new TextBox();
             minValTxtBox = new TextBox();
             maxWghtTxtBox = new TextBox();
@@ -285,7 +281,7 @@
             // crossoverRateLabel
             // 
             crossoverRateLabel.AutoSize = true;
-            crossoverRateLabel.Location = new Point(129, 425);
+            crossoverRateLabel.Location = new Point(128, 416);
             crossoverRateLabel.Name = "crossoverRateLabel";
             crossoverRateLabel.Size = new Size(105, 15);
             crossoverRateLabel.TabIndex = 25;
@@ -293,7 +289,7 @@
             // 
             // crossoverRateTxtBox
             // 
-            crossoverRateTxtBox.Location = new Point(129, 443);
+            crossoverRateTxtBox.Location = new Point(128, 434);
             crossoverRateTxtBox.Name = "crossoverRateTxtBox";
             crossoverRateTxtBox.Size = new Size(100, 23);
             crossoverRateTxtBox.TabIndex = 26;
@@ -313,7 +309,7 @@
             // 
             // mutationRateTxtBox
             // 
-            mutationRateTxtBox.Location = new Point(128, 495);
+            mutationRateTxtBox.Location = new Point(254, 379);
             mutationRateTxtBox.Name = "mutationRateTxtBox";
             mutationRateTxtBox.Size = new Size(100, 23);
             mutationRateTxtBox.TabIndex = 28;
@@ -322,7 +318,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(128, 477);
+            label6.Location = new Point(254, 361);
             label6.Name = "label6";
             label6.Size = new Size(90, 15);
             label6.TabIndex = 29;
@@ -368,7 +364,7 @@
             // 
             fitPenaltyRadio0.AutoSize = true;
             fitPenaltyRadio0.Checked = true;
-            fitPenaltyRadio0.Location = new Point(260, 273);
+            fitPenaltyRadio0.Location = new Point(260, 290);
             fitPenaltyRadio0.Name = "fitPenaltyRadio0";
             fitPenaltyRadio0.Size = new Size(79, 19);
             fitPenaltyRadio0.TabIndex = 34;
@@ -379,7 +375,7 @@
             // fitPenaltyRadioPercent
             // 
             fitPenaltyRadioPercent.AutoSize = true;
-            fitPenaltyRadioPercent.Location = new Point(260, 289);
+            fitPenaltyRadioPercent.Location = new Point(260, 306);
             fitPenaltyRadioPercent.Name = "fitPenaltyRadioPercent";
             fitPenaltyRadioPercent.Size = new Size(177, 19);
             fitPenaltyRadioPercent.TabIndex = 35;
@@ -389,56 +385,11 @@
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(254, 255);
+            label8.Location = new Point(254, 272);
             label8.Name = "label8";
             label8.Size = new Size(160, 15);
             label8.TabIndex = 36;
             label8.Text = "Kara za przepełnienie plecaka";
-            // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.Location = new Point(260, 343);
-            label9.Name = "label9";
-            label9.Size = new Size(89, 15);
-            label9.TabIndex = 37;
-            label9.Text = "Metoda selekcji";
-            // 
-            // radioButton1
-            // 
-            radioButton1.AutoCheck = false;
-            radioButton1.AutoSize = true;
-            radioButton1.Location = new Point(264, 361);
-            radioButton1.Name = "radioButton1";
-            radioButton1.Size = new Size(71, 19);
-            radioButton1.TabIndex = 38;
-            radioButton1.TabStop = true;
-            radioButton1.Text = "rangowa";
-            radioButton1.UseVisualStyleBackColor = true;
-            // 
-            // radioButton2
-            // 
-            radioButton2.AutoCheck = false;
-            radioButton2.AutoSize = true;
-            radioButton2.Location = new Point(264, 383);
-            radioButton2.Name = "radioButton2";
-            radioButton2.Size = new Size(81, 19);
-            radioButton2.TabIndex = 39;
-            radioButton2.TabStop = true;
-            radioButton2.Text = "turniejowa";
-            radioButton2.UseVisualStyleBackColor = true;
-            // 
-            // radioButton3
-            // 
-            radioButton3.AutoCheck = false;
-            radioButton3.AutoSize = true;
-            radioButton3.Location = new Point(264, 404);
-            radioButton3.Name = "radioButton3";
-            radioButton3.Size = new Size(77, 19);
-            radioButton3.TabIndex = 40;
-            radioButton3.TabStop = true;
-            radioButton3.Text = "ruletkowa";
-            radioButton3.UseVisualStyleBackColor = true;
             // 
             // minWghtTxtBox
             // 
@@ -511,7 +462,7 @@
             // label13
             // 
             label13.AutoSize = true;
-            label13.Location = new Point(198, 600);
+            label13.Location = new Point(187, 517);
             label13.Name = "label13";
             label13.Size = new Size(125, 15);
             label13.TabIndex = 52;
@@ -519,7 +470,7 @@
             // 
             // initPopZerosTxtBox
             // 
-            initPopZerosTxtBox.Location = new Point(208, 618);
+            initPopZerosTxtBox.Location = new Point(197, 535);
             initPopZerosTxtBox.Name = "initPopZerosTxtBox";
             initPopZerosTxtBox.Size = new Size(28, 23);
             initPopZerosTxtBox.TabIndex = 53;
@@ -527,7 +478,7 @@
             // 
             // initPopOnesTxtBox
             // 
-            initPopOnesTxtBox.Location = new Point(260, 618);
+            initPopOnesTxtBox.Location = new Point(249, 535);
             initPopOnesTxtBox.Name = "initPopOnesTxtBox";
             initPopOnesTxtBox.Size = new Size(29, 23);
             initPopOnesTxtBox.TabIndex = 54;
@@ -536,7 +487,7 @@
             // label15
             // 
             label15.AutoSize = true;
-            label15.Location = new Point(207, 643);
+            label15.Location = new Point(196, 560);
             label15.Name = "label15";
             label15.Size = new Size(22, 15);
             label15.TabIndex = 55;
@@ -545,7 +496,7 @@
             // label16
             // 
             label16.AutoSize = true;
-            label16.Location = new Point(260, 644);
+            label16.Location = new Point(249, 561);
             label16.Name = "label16";
             label16.Size = new Size(48, 15);
             label16.TabIndex = 56;
@@ -554,7 +505,7 @@
             // label17
             // 
             label17.AutoSize = true;
-            label17.Location = new Point(242, 621);
+            label17.Location = new Point(231, 538);
             label17.Name = "label17";
             label17.Size = new Size(12, 15);
             label17.TabIndex = 57;
@@ -563,7 +514,7 @@
             // label18
             // 
             label18.AutoSize = true;
-            label18.Location = new Point(129, 532);
+            label18.Location = new Point(255, 416);
             label18.Name = "label18";
             label18.Size = new Size(116, 15);
             label18.TabIndex = 58;
@@ -571,7 +522,7 @@
             // 
             // noMutatedGenesTxtBox
             // 
-            noMutatedGenesTxtBox.Location = new Point(128, 550);
+            noMutatedGenesTxtBox.Location = new Point(254, 434);
             noMutatedGenesTxtBox.Name = "noMutatedGenesTxtBox";
             noMutatedGenesTxtBox.Size = new Size(100, 23);
             noMutatedGenesTxtBox.TabIndex = 59;
@@ -598,10 +549,6 @@
             Controls.Add(maxWghtTxtBox);
             Controls.Add(minValTxtBox);
             Controls.Add(minWghtTxtBox);
-            Controls.Add(radioButton3);
-            Controls.Add(radioButton2);
-            Controls.Add(radioButton1);
-            Controls.Add(label9);
             Controls.Add(label8);
             Controls.Add(fitPenaltyRadioPercent);
             Controls.Add(fitPenaltyRadio0);
@@ -678,10 +625,6 @@
         private RadioButton fitPenaltyRadio0;
         private RadioButton fitPenaltyRadioPercent;
         private Label label8;
-        private Label label9;
-        private RadioButton radioButton1;
-        private RadioButton radioButton2;
-        private RadioButton radioButton3;
         private TextBox minWghtTxtBox;
         private TextBox minValTxtBox;
         private TextBox maxWghtTxtBox;
