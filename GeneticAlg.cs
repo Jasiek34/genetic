@@ -122,7 +122,7 @@ namespace WinFormsApp1
             }
         }
         
-        private void CalcPopFitness()
+        private void CalcPopFitness(bool sort)
         {
             if (fitnessPenalty0)
             {
@@ -142,14 +142,16 @@ namespace WinFormsApp1
 
                 }
             }
-            
-            populationWithScores.Sort();
-            
+            if (sort)
+            {
+                populationWithScores.Sort();
+            }
+
         }
         
         private void GenerateNewPop()
         {
-            CalcPopFitness();
+            CalcPopFitness(true);
             bestIndividuals.Add(populationWithScores[0].representation);
             bestFitness.Add(populationWithScores[0].fitness);
             
@@ -232,7 +234,7 @@ namespace WinFormsApp1
                         break;
                     }
                 }
-                if (!p1 || !p2) // || Enumerable.SequenceEqual(parent1, parent2)) 
+                if (!p1 || !p2) 
                 {
                         continue;
                 }
@@ -262,7 +264,109 @@ namespace WinFormsApp1
             populationWithScores = newPop;
             MutatePop();
         }
-        
+        private void GenerateNewPopTournament()
+        {
+            CalcPopFitness(true);
+            bestIndividuals.Add(populationWithScores[0].representation);
+            bestFitness.Add(populationWithScores[0].fitness);
+
+            int avg = 0;
+            int a = 0;
+            for (; a < populationWithScores.Count; a++)
+            {
+                avg += populationWithScores[a].fitness;
+            }
+            averageFitness.Add(avg / a);
+
+            Random random = new Random();
+            //metoda turniejowa
+
+    
+            int currentPopSize = populationWithScores.Count;
+
+
+            List<Individual> newPop = new List<Individual>(); //to co zwrocimy na koniec jako nowa generacja
+            bool[] parent1 = new bool[itemsNo];
+            bool[] parent2 = new bool[itemsNo];
+
+
+
+            //elityzm 
+            if (useElitism)
+            {
+                int elit = (currentPopSize * elitismPercent) / 100;
+                for (int i = 0; i < elit; i++)
+                {
+                    if (populationWithScores[i].fitness == 0) { break; }
+                    Individual ind = new Individual() { representation = populationWithScores[i].representation };
+                    newPop.Add(ind);
+                }
+            }
+
+            while (newPop.Count < populationSize)
+            {
+
+                double rnd = random.NextDouble() / populationSize;//wylosowana wartosc dla prawdopodobienstwa rozmnazania osobnika
+                int rndIndividual;
+                bool p1 = false;
+                bool p2 = false;
+                int used = -1;//ograniczam tym krzyzowanie sie osobnika z samym sobą
+                for (int i = 0; i < currentPopSize; i++)
+                {
+                    rndIndividual = random.Next(0, currentPopSize - 1);
+                    used = rndIndividual;
+                    if (rnd - populationWithScores[rndIndividual].probabScore <= 0) //czy bierze udzial w rozmnazaniu
+                    {
+                        parent1 = populationWithScores[rndIndividual].representation;
+                        p1 = true;
+                        break;
+                    }
+                }
+
+                for (int i = 0; i < currentPopSize; i++)
+                {
+                    rndIndividual = random.Next(0, currentPopSize - 1);
+                    while (rndIndividual == used)
+                    {
+                        rndIndividual = random.Next(0, currentPopSize - 1);
+                    }
+                    if (rnd - populationWithScores[rndIndividual].probabScore <= 0) //czy bierze udzial w rozmnazaniu
+                    {
+                        parent2 = populationWithScores[rndIndividual].representation;
+                        p2 = true;
+                        break;
+                    }
+                }
+                if (!p1 || !p2)
+                {
+                    continue;
+                }
+                int k = random.Next(0, 10);
+
+                if (k < crossoverRate)
+                {
+                    bool[] child = CrossoverRandomParentGenes(parent1, parent2);
+                    //bool[] child2 = CrossoverTwoPoint(parent1, parent2);
+                    newPop.Add(new Individual { representation = child, fitness = 0, probabScore = 0 });
+                    //newPop.Add(new Individual { representation = child2, fitness = 0, probabScore = 0 });
+                }
+                else
+                {
+                    newPop.Add(new Individual { representation = parent1, fitness = 0, probabScore = 0 });
+                    //newPop.Add(new Individual { representation = parent2, fitness = 0, probabScore = 0 });
+                }
+
+
+            }
+            currentGen++;
+            if (currentGen >= generationsNo)
+            {
+                return;
+            }
+            populationWithScores.Clear();
+            populationWithScores = newPop;
+            MutatePop();
+        }
         private bool[] CrossoverRandomParentGenes(bool[] i1, bool[] i2)
         {
             Random random = new Random();

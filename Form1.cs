@@ -100,7 +100,8 @@ namespace WinFormsApp1
             Individual bestInd = alg.populationWithScores[0];
             if (!fitPenaltyRadio0.Checked) // jesli uzywamy penalty na podstawie przekroczenia wagi
             {
-                for (int i = 0; i < alg.populationSize; i++)
+                int i = 0;
+                for (; i < alg.populationSize; i++)
                 {
                     if (alg.populationWithScores[i].GetWeight(weights) <= alg.capacity)
                     {
@@ -109,6 +110,10 @@ namespace WinFormsApp1
                         bestInd = alg.populationWithScores[i];
                         break;
                     }
+                }
+                if (i == alg.populationSize)
+                {
+                    res = 0;
                 }
             }
             resultLabel.Text = "Znalezione rozwiązanie: " + res;
