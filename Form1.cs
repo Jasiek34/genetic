@@ -1,4 +1,4 @@
-using OxyPlot.Series;
+﻿using OxyPlot.Series;
 using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.Legends;
@@ -73,13 +73,13 @@ namespace WinFormsApp1
             weights.Clear();
             values.Clear();
             optReslabel.Text = "";
-            resultLabel.Text = "Znalezione rozwi�zanie:";
+            resultLabel.Text = "Znalezione rozwiązanie:";
             itemsListView.Items.Clear();
         }
         private void showItemsNo(object sender, EventArgs e)
         {
             itemsNoLabel.Visible = true;
-            itemsNoLabel.Text = "przedmiot�w: " + weights.Count;
+            itemsNoLabel.Text = "przedmiotów: " + weights.Count;
         }
         private void hideItemsNo(object sender, EventArgs e)
         {
@@ -99,7 +99,6 @@ namespace WinFormsApp1
             Individual bestInd = alg.populationWithScores[0];
             if (!fitPenaltyRadio0.Checked) // jesli uzywamy penalty na podstawie przekroczenia wagi
             {
-                MessageBox.Show("ss");
                 for (int i = 0; i < alg.populationSize; i++)
                 {
                     if (alg.populationWithScores[i].GetWeight(weights) <= alg.capacity)
@@ -111,7 +110,7 @@ namespace WinFormsApp1
                     }
                 }
             }
-            resultLabel.Text = "Znalezione rozwi?zanie: " + res;
+            resultLabel.Text = "Znalezione rozwiązanie: " + res;
             noGenLabel.Text = "Liczba generacji: " + alg.generationsNo;
             HighlightItems(bestInd);
 
