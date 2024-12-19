@@ -10,13 +10,13 @@ namespace WinFormsApp1
         public Form1()
         {
             InitializeComponent();
-            
+
             itemsListView.MouseHover += showItemsNo;
             itemsListView.MouseLeave += hideItemsNo;
-            
+
             weights = new List<int>();
             values = new List<int>();
-            
+
         }
         public List<int> weights;
         public List<int> values;
@@ -94,7 +94,8 @@ namespace WinFormsApp1
                 Convert.ToInt32(mutationRateTxtBox.Text), elitCB.Checked, Convert.ToInt32(elitismTxtBox.Text), fitPenaltyRadio0.Checked); alg.mutatedGenesNo = Convert.ToInt32(noMutatedGenesTxtBox.Text);
             alg.initPopOneNo = Convert.ToInt32(initPopOnesTxtBox.Text);
             alg.initPopZeroNo = Convert.ToInt32(initPopZerosTxtBox.Text);
-            int res = alg.main();
+            alg.main();
+            int res = alg.populationWithScores[0].fitness;
             weightLabel.Text = "Waga: " + alg.populationWithScores[0].GetWeight(weights);
             Individual bestInd = alg.populationWithScores[0];
             if (!fitPenaltyRadio0.Checked) // jesli uzywamy penalty na podstawie przekroczenia wagi
