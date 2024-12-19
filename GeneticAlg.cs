@@ -49,7 +49,7 @@ namespace WinFormsApp1
             bestIndividuals = new List<bool[]>();
             populationWithScores = new List<Individual>();
 
-            initPop();
+            
             this.mutationRate = mutationRate;
             this.useElitism = useElitism;
             this.elitismPercent = elitismPercent;
@@ -60,7 +60,8 @@ namespace WinFormsApp1
         }
         public int main()
         {
-            for(int i=0; i< generationsNo; i++)
+            initPop();
+            for (int i=0; i< generationsNo; i++)
             {
                 GenerateNewPop();
             }
