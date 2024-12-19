@@ -205,9 +205,11 @@ namespace WinFormsApp1
                 int rndIndividual; 
                 bool p1 = false;
                 bool p2 = false;
-                for (int i = 0; i < currentPopSize; i++) 
+                int used = -1;//ograniczam tym krzyzowanie sie osobnika z samym sobą
+                for (int i = 0; i < currentPopSize; i++)
                 {
-                    rndIndividual = random.Next(0, currentPopSize-1);
+                    rndIndividual = random.Next(0, currentPopSize - 1);
+                    used = rndIndividual;
                     if (rnd - populationWithScores[rndIndividual].probabScore <= 0) //czy bierze udzial w rozmnazaniu
                     {
                         parent1 = populationWithScores[rndIndividual].representation;
@@ -218,7 +220,11 @@ namespace WinFormsApp1
 
                 for (int i = 0; i < currentPopSize; i++)
                 {
-                    rndIndividual = random.Next(0, currentPopSize-1);
+                    rndIndividual = random.Next(0, currentPopSize - 1);
+                    while (rndIndividual == used)
+                    {
+                        rndIndividual = random.Next(0, currentPopSize - 1);
+                    }
                     if (rnd - populationWithScores[rndIndividual].probabScore <= 0) //czy bierze udzial w rozmnazaniu
                     {
                         parent2 = populationWithScores[rndIndividual].representation;
