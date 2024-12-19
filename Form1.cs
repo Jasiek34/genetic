@@ -10,22 +10,13 @@ namespace WinFormsApp1
         public Form1()
         {
             InitializeComponent();
-            /*weights = new List<int>() { 2,13,53,31,2,11,42,32,26,29,15,41,42,99};
-            values = new List<int>() { 4, 21, 56, 32, 10, 16, 18, 22, 34, 7, 11, 30, 20, 1000 };*/
-            /*weights = new List<int>() { 7,2,1,9,10,5,14};
-            values = new List<int>() { 5,4,7,2,8,4,9 };*/
-            /*weights = new List<int>() { 1, 2, 3, 4, 5, 6, 7 };
-            values = new List<int>() { 2, 4, 4, 5, 7, 9, 9 };*/
+            
             itemsListView.MouseHover += showItemsNo;
             itemsListView.MouseLeave += hideItemsNo;
-            //itemsListView.
+            
             weights = new List<int>();
             values = new List<int>();
-            /*for (int i = 0; i < 20; i++)
-            {
-                addRndItems();
-
-            }*/
+            
         }
         public List<int> weights;
         public List<int> values;
@@ -98,14 +89,30 @@ namespace WinFormsApp1
         private void geneticBtn_Click(object sender, EventArgs e)
         {
             StopHighlightItems();
-            GeneticAlg alg = new GeneticAlg(weights, values, Convert.ToInt32(capacityTxtBox.Text), Convert.ToInt32(populationTxtBox.Text), Convert.ToInt32(generationsNoTxtBox.Text), (float)Convert.ToDouble(selectionPressureTxtBox.Text), Convert.ToInt32(crossoverRateTxtBox.Text), Convert.ToInt32(mutationRateTxtBox.Text), elitCB.Enabled, Convert.ToInt32(elitismTxtBox.Text), fitPenaltyRadio0.Checked);
-            alg.mutatedGenesNo = Convert.ToInt32(noMutatedGenesTxtBox.Text);
+            GeneticAlg alg = new GeneticAlg(weights, values, Convert.ToInt32(capacityTxtBox.Text), Convert.ToInt32(populationTxtBox.Text),
+                Convert.ToInt32(generationsNoTxtBox.Text), (float)Convert.ToDouble(selectionPressureTxtBox.Text), Convert.ToInt32(crossoverRateTxtBox.Text),
+                Convert.ToInt32(mutationRateTxtBox.Text), elitCB.Checked, Convert.ToInt32(elitismTxtBox.Text), fitPenaltyRadio0.Checked); alg.mutatedGenesNo = Convert.ToInt32(noMutatedGenesTxtBox.Text);
             alg.initPopOneNo = Convert.ToInt32(initPopOnesTxtBox.Text);
             alg.initPopZeroNo = Convert.ToInt32(initPopZerosTxtBox.Text);
             int res = alg.main();
-            resultLabel.Text = "Znalezione rozwi¹zanie: " + res;
-            noGenLabel.Text = "Liczba generacji: " + alg.currentGen;
+            weightLabel.Text = "Waga: " + alg.populationWithScores[0].GetWeight(weights);
             Individual bestInd = alg.populationWithScores[0];
+            if (!fitPenaltyRadio0.Checked) // jesli uzywamy penalty na podstawie przekroczenia wagi
+            {
+                MessageBox.Show("ss");
+                for (int i = 0; i < alg.populationSize; i++)
+                {
+                    if (alg.populationWithScores[i].GetWeight(weights) <= alg.capacity)
+                    {
+                        res = alg.populationWithScores[i].fitness;
+                        weightLabel.Text = "Waga: " + alg.populationWithScores[i].GetWeight(weights);
+                        bestInd = alg.populationWithScores[i];
+                        break;
+                    }
+                }
+            }
+            resultLabel.Text = "Znalezione rozwi?zanie: " + res;
+            noGenLabel.Text = "Liczba generacji: " + alg.generationsNo;
             HighlightItems(bestInd);
 
 
@@ -124,7 +131,6 @@ namespace WinFormsApp1
             {
                 lsAverage.Points.Add(new DataPoint(i, alg.averageFitness[i]));
             }
-            weightLabel.Text = "Waga: " + bestInd.GetWeight(weights);
             myModel.Legends.Add(new Legend() { LegendTitle = "Best", LegendTitleColor = OxyColors.Green, });
             myModel.Legends.Add(new Legend() { LegendTitle = "Average", LegendPosition = LegendPosition.BottomRight, LegendTitleColor = OxyColors.Orange });
             myModel.Axes.Add(new LinearAxis
