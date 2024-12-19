@@ -67,8 +67,8 @@
             radioButton2 = new RadioButton();
             radioButton3 = new RadioButton();
             label10 = new Label();
-            pointCrossRadio = new RadioButton();
-            uniformCrossRadio = new RadioButton();
+            radioButton4 = new RadioButton();
+            radioButton5 = new RadioButton();
             minWghtTxtBox = new TextBox();
             minValTxtBox = new TextBox();
             maxWghtTxtBox = new TextBox();
@@ -411,7 +411,6 @@
             // 
             radioButton1.AutoCheck = false;
             radioButton1.AutoSize = true;
-            radioButton1.Checked = true;
             radioButton1.Location = new Point(264, 361);
             radioButton1.Name = "radioButton1";
             radioButton1.Size = new Size(71, 19);
@@ -453,32 +452,29 @@
             label10.TabIndex = 41;
             label10.Text = "Krzyżowanie";
             // 
-            // pointCrossRadio
+            // radioButton4
             // 
-            pointCrossRadio.AutoCheck = false;
-            pointCrossRadio.AutoSize = true;
-            pointCrossRadio.Location = new Point(264, 486);
-            pointCrossRadio.Name = "pointCrossRadio";
-            pointCrossRadio.Size = new Size(78, 19);
-            pointCrossRadio.TabIndex = 42;
-            pointCrossRadio.TabStop = true;
-            pointCrossRadio.Text = "punktowe";
-            pointCrossRadio.UseVisualStyleBackColor = true;
-            
+            radioButton4.AutoCheck = false;
+            radioButton4.AutoSize = true;
+            radioButton4.Location = new Point(264, 486);
+            radioButton4.Name = "radioButton4";
+            radioButton4.Size = new Size(78, 19);
+            radioButton4.TabIndex = 42;
+            radioButton4.TabStop = true;
+            radioButton4.Text = "punktowe";
+            radioButton4.UseVisualStyleBackColor = true;
             // 
-            // uniformCrossRadio
+            // radioButton5
             // 
-            uniformCrossRadio.AutoCheck = false;
-            uniformCrossRadio.AutoSize = true;
-            uniformCrossRadio.Checked = true;
-            uniformCrossRadio.Location = new Point(264, 464);
-            uniformCrossRadio.Name = "uniformCrossRadio";
-            uniformCrossRadio.Size = new Size(86, 19);
-            uniformCrossRadio.TabIndex = 43;
-            uniformCrossRadio.TabStop = true;
-            uniformCrossRadio.Text = "jednorodne";
-            uniformCrossRadio.UseVisualStyleBackColor = true;
-           
+            radioButton5.AutoCheck = false;
+            radioButton5.AutoSize = true;
+            radioButton5.Location = new Point(264, 464);
+            radioButton5.Name = "radioButton5";
+            radioButton5.Size = new Size(86, 19);
+            radioButton5.TabIndex = 43;
+            radioButton5.TabStop = true;
+            radioButton5.Text = "jednorodne";
+            radioButton5.UseVisualStyleBackColor = true;
             // 
             // minWghtTxtBox
             // 
@@ -638,8 +634,8 @@
             Controls.Add(maxWghtTxtBox);
             Controls.Add(minValTxtBox);
             Controls.Add(minWghtTxtBox);
-            Controls.Add(uniformCrossRadio);
-            Controls.Add(pointCrossRadio);
+            Controls.Add(radioButton5);
+            Controls.Add(radioButton4);
             Controls.Add(label10);
             Controls.Add(radioButton3);
             Controls.Add(radioButton2);
@@ -726,8 +722,8 @@
         private RadioButton radioButton2;
         private RadioButton radioButton3;
         private Label label10;
-        private RadioButton pointCrossRadio;
-        private RadioButton uniformCrossRadio;
+        private RadioButton radioButton4;
+        private RadioButton radioButton5;
         private TextBox minWghtTxtBox;
         private TextBox minValTxtBox;
         private TextBox maxWghtTxtBox;

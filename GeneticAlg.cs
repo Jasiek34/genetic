@@ -26,13 +26,12 @@ namespace WinFormsApp1
         public int mutatedGenesNo;
         public int initPopZeroNo;
         public int initPopOneNo; // initPopOneNo/initPopZeroNo to stosunek jedynek do zer w początkowej populacji
-        public int crossMethod;//1- uniform, 2-point
-
 
         public List<Individual> populationWithScores;
         List<bool[]> bestIndividuals;
         public List<int> bestFitness;
         public List<int> averageFitness;
+
         public GeneticAlg(List<int> weights, List<int> values, int capacity, int populationSize, int generationsNo, float selectionPressure, int crossoverRate, int mutationRate, bool useElitism, int elitismPercent = 0, bool fitnessPenalty0 = true)
         {
             this.weights = weights;
@@ -58,7 +57,6 @@ namespace WinFormsApp1
             mutatedGenesNo = 1;
             initPopZeroNo = 1;
             initPopOneNo = 1;
-            crossMethod = 1;//defaultowo uniform
         }
         public int main()
         {
@@ -177,6 +175,7 @@ namespace WinFormsApp1
             }
             
             //usuwam polowe najgorszych osobnikow
+
             //populationWithScores.RemoveRange(populationWithScores.Count/2, populationWithScores.Count / 2);
             int currentPopSize = populationWithScores.Count;
 
@@ -202,14 +201,14 @@ namespace WinFormsApp1
             while (newPop.Count < populationSize)
             {
                 
-                double rnd = random.NextDouble()/populationSize;//wylosowana wartosc dla prawdopodobienstwa rozmnazania osobnika
-                int rndIndividual=0; 
+                double rnd = random.NextDouble() / populationSize;//wylosowana wartosc dla prawdopodobienstwa rozmnazania osobnika
+                int rndIndividual; 
                 bool p1 = false;
                 bool p2 = false;
                 int used = -1;//ograniczam tym krzyzowanie sie osobnika z samym sobą
-                for (int i = 0; i < currentPopSize; i++) 
+                for (int i = 0; i < currentPopSize; i++)
                 {
-                    rndIndividual = random.Next(0, currentPopSize-1);
+                    rndIndividual = random.Next(0, currentPopSize - 1);
                     used = rndIndividual;
                     if (rnd - populationWithScores[rndIndividual].probabScore <= 0) //czy bierze udzial w rozmnazaniu
                     {
@@ -221,9 +220,10 @@ namespace WinFormsApp1
 
                 for (int i = 0; i < currentPopSize; i++)
                 {
+                    rndIndividual = random.Next(0, currentPopSize - 1);
                     while (rndIndividual == used)
                     {
-                        rndIndividual = random.Next(0, currentPopSize-1);
+                        rndIndividual = random.Next(0, currentPopSize - 1);
                     }
                     if (rnd - populationWithScores[rndIndividual].probabScore <= 0) //czy bierze udzial w rozmnazaniu
                     {
@@ -232,7 +232,7 @@ namespace WinFormsApp1
                         break;
                     }
                 }
-                if (!p1 || !p2) 
+                if (!p1 || !p2) // || Enumerable.SequenceEqual(parent1, parent2)) 
                 {
                         continue;
                 }
@@ -240,18 +240,9 @@ namespace WinFormsApp1
                 
                 if(k<crossoverRate)
                 {
-                    if (crossMethod == 1)
-                    {
-                        bool[] child = CrossoverUniform(parent1, parent2);
-                        newPop.Add(new Individual { representation = child, fitness = 0, probabScore = 0 });
-                    }
-                    else if (crossMethod == 2)
-                    {
-                        bool[] child = CrossoverTwoPoint(parent1, parent2);
-                        newPop.Add(new Individual { representation = child, fitness = 0, probabScore = 0 });
-                    }
-
+                    bool[] child = CrossoverRandomParentGenes(parent1, parent2);
                     //bool[] child2 = CrossoverTwoPoint(parent1, parent2);
+                    newPop.Add(new Individual { representation = child, fitness = 0, probabScore = 0 });
                     //newPop.Add(new Individual { representation = child2, fitness = 0, probabScore = 0 });
                 }
                 else
@@ -272,7 +263,7 @@ namespace WinFormsApp1
             MutatePop();
         }
         
-        private bool[] CrossoverUniform(bool[] i1, bool[] i2)
+        private bool[] CrossoverRandomParentGenes(bool[] i1, bool[] i2)
         {
             Random random = new Random();
             bool[] child = new bool[i1.Length];
